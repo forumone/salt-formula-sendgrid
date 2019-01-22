@@ -3,7 +3,7 @@ Sendgrid salt formula
 
 # Requirements:
 Postfix salt formula
-https://github.com/saltstack-formulas/postfix-formula/blob/master/pillar.example
+https://github.com/saltstack-formulas/postfix-formula/
 
 curl, jq
 
