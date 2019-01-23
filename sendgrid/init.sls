@@ -10,8 +10,8 @@ base config for sendgrid as email relay from postfix
 #  - pkg: openssl
 
 {% set hostname = grains['id'] %}
-#{% set apikey = salt['cmd.run']('/srv/formula/salt-formula-sendgrid/sendgrid/scripts/sendgrid_user.sh {{ hostname }}') %}
-{% set apikey = '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' %}
+{% set apikey = salt['cmd.script']('salt://sendgrid/scripts/sendgrid_user.sh {{ hostname }}') %}
+#{% set apikey = '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' %}
 
 #postfix:
 #  config:
