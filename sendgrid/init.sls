@@ -6,9 +6,10 @@ include:
 require:
   - pkg: curl
   - pkg: jq
+  - pkg: cyrus-sasl-plain
 
-{%- set hostname = grains['id'] %}
-{% ['cmd.run']('./scripts/sendgrid_user.sh {{ hostname }}') %}
+{% set hostname = grains['id'] %}
+{% set apikey = ['cmd.run']('salt://sendgrid/scripts/sendgrid_user.sh {{ hostname }}') %}
 
 postfix:
   config:
@@ -22,10 +23,12 @@ postfix:
 
 /etc/postfix/sasl_passwd:
   file.managed:
-    - source: salt://sendgrid/scripts/files/{{ hostname }}_sasl_passwd
+    - source: salt://sendgrid/templates/sasl_passwd
     - user: root
     - group: root
     - mode: 600
+    - context:
+      password: {{ apikey }}
 
 'postmap /etc/postfix/sasl_passwd':
   - cmd.run:
