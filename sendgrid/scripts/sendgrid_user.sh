@@ -5,7 +5,7 @@
 #
 #Some Variables that could be changed
 #
-master_api_key=$(<master_api_key.txt)
+master_api_key=$(</srv/formula/salt-formula-sendgrid/sendgrid/scripts/master_api_key.txt)
 hostname=$1
 limits=1000
 password=$(openssl rand -base64 32)
@@ -62,10 +62,3 @@ api_key=$(curl -s --request POST \
 )
 echo $api_key
 
-#echo "[smtp.sendgrid.net]:587 apikey:$api_key" > files/${hostname}_sasl_passwd
-
-# Just some notes on allocating credit if it ever works
-#"credit_allocation": 
-#    {"type": "recurring_credits", 
-#    "period": "month", 
-#    "number_of_credits": "1000"}",
