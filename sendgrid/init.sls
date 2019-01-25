@@ -32,7 +32,7 @@ require:
     - context:
         apikey: {{ apikey }}
 
-/etc/postfix/main.cf
+/etc/postfix/main.cf:
   file.managed:
     - source: salt://sendgrid/templates/main.cf
     - user: root
