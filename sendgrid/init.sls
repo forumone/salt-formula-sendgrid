@@ -1,5 +1,14 @@
 #base config for sendgrid as email relay from postfix
 #
+install_packages:
+  pkg.installed:
+    - pkgs:
+      - postfix
+      - curl
+      - jq
+      - mailutils
+      - openssl
+
 {% set apikey =  salt['pillar.get']('apikey', '0') %}
 {% set master_api_key = salt['pillar.get']('master_api_key', '0') %}
 {% set hostname = grains['id'] %}
@@ -11,15 +20,6 @@
 {% if master_api_key != '0' %}}
   {% set apikey = salt['cmd.script']('salt://sendgrid/scripts/sendgrid_user.sh {{ hostname }} {{ master_api_key }}') %}
 {% endif %}
-
-install_packages:
-  pkg.installed:
-    - pkgs:
-      - postfix
-      - curl
-      - jq
-      - mailutils
-      - openssl
 
 /etc/postfix/sasl_passwd:
   file.managed:
