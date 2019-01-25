@@ -70,5 +70,11 @@ api_key=$(curl -s --request POST \
   --header "on-behalf-of: $hostname" \
   --data '{"name":"postfix"}' | jq -r '.api_key'
 )
-echo $api_key
+check=$(echo $api_key | grep -ow SG.)
 
+if [[ -z $check ]]
+then
+exit 1
+else 
+echo $api_key
+fi
