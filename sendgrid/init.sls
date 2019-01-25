@@ -12,22 +12,14 @@
   {% set apikey = salt['cmd.script']('salt://sendgrid/scripts/sendgrid_user.sh {{ hostname }} {{ master_api_key }}') %}
 {% endif %}
 
-postfix:
-  pkg:
-    - installed
-curl:
-  pkg:
-    - installed
-jq:
-  pkg:
-    - installed
-mailutils:
-  pkg:
-    - installed
-openssl:
-  pkg:
-    - installed
-
+install_packages:
+  pkg.installed:
+    - pkgs:
+      - postfix
+      - curl
+      - jq
+      - mailutils
+      - openssl
 
 /etc/postfix/sasl_passwd:
   file.managed:
@@ -52,5 +44,5 @@ openssl:
 'postmap /etc/postfix/sasl_passwd':
   cmd.run
 
-'echo "sendgrid setup is working" | mailx -r donotreply@forumone.com -s "message from {{ hostname }}" jbernardi@forumone.com:
+'echo "sendgrid setup is working" | mailx -r donotreply@forumone.com -s "message from {{ hostname }}" jbernardi@forumone.com':
   cmd.run
