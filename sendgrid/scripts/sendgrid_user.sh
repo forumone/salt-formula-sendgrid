@@ -5,7 +5,7 @@
 #
 #Some Variables that could be changed
 #
-master_api_key=$(</srv/formula/salt-formula-sendgrid/sendgrid/scripts/master_api_key.txt)
+
 hostname=$1
 limits=1000
 password=$(openssl rand -base64 32)
@@ -13,9 +13,19 @@ ip=149.72.187.229
 #
 # the rest is pretty self explanatory 
 #
+
+if [[ "$hostname" == "setup" ]]
+then
+echo "Please enter a sendgrid api key that can create users:"
+echo ' '
+read inputKey 
+export master_api_key="$inputKey"
+source ~/.bashrc
+fi
+
 if [[ -z $master_api_key ]]
 then 
-echo "please enter master API key in master_api_key.txt"
+echo "please enter master API key run './sendgrid_user.sh setup' to set the api key"
 exit 1
 fi
 
