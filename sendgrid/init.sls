@@ -13,7 +13,7 @@
 {% endif %}
 
 
-sendgrid dependencies:
+require:
   pkg.installed:
     - pkgs:
       - postfix
