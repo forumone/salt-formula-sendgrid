@@ -1,13 +1,5 @@
 #base config for sendgrid as email relay from postfix
 #
-install_packages:
-  pkg.installed:
-    - pkgs:
-      - postfix
-      - curl
-      - jq
-      - mailutils
-      - openssl
 
 {% set apikey =  salt['pillar.get']('apikey', '0') %}
 {% set master_api_key = salt['pillar.get']('master_api_key', '0') %}
@@ -22,28 +14,26 @@ install_packages:
 {% endif %}
 
 
-#/etc/postfix/sasl_passwd:
-#  file.managed:
-#    - source: salt://sendgrid/templates/sasl_passwd
-#    - user: root
-#    - group: root
-#    - mode: 600
-#    - template: jinja
-#    - context:
-#        apikey: {{ apikey }}
-
-#/etc/postfix/main.cf:
-#  file.managed:
-#    - source: salt://sendgrid/templates/main.cf
-#    - user: root
-#    - group: root
-#    - mode: 600
-#    - template: jinja
-#    - context:
-#        hostname: {{ hostname }}
-
-#'postmap /etc/postfix/sasl_passwd':
-#  cmd.run
-
-#'echo "sendgrid setup is working" | mailx -r donotreply@forumone.com -s "message from {{ hostname }}" jbernardi@forumone.com':
-#  cmd.run
+/etc/postfix/sasl_passwd:
+  file.managed:
+    - source: salt://sendgrid/templates/sasl_passwd
+    - user: root
+    - group: root
+    - mode: 600
+    - template: jinja
+    - context:
+        apikey: {{ apikey }}
+        
+/etc/postfix/main.cf:
+  file.managed:
+    - source: salt://sendgrid/templates/main.cf
+    - user: root
+    - group: root
+    - mode: 600
+    - template: jinja
+    - context:
+        hostname: {{ hostname }}
+'postmap /etc/postfix/sasl_passwd':
+  cmd.run
+'echo "sendgrid setup is working" | mailx -r donotreply@forumone.com -s "message from {{ hostname }}" jbernardi@forumone.com':
+  cmd.run
