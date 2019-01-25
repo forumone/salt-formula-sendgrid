@@ -5,13 +5,13 @@
 {% set master_api_key = salt['pillar.get']('master_api_key', '0') %}
 {% set hostname = grains['id'] %}
 
-{% if apikey == '0' and master_api_key == '0' %}
+{% if apikey == '0' and master_api_key == '0' -%}
   "No API Keys are Set"
-{% endif %}
+{-% endif %}
 
-{% if master_api_key != '0' %}
+{% if master_api_key != '0' -%}
   {% set apikey = salt['cmd.script']('salt://sendgrid/scripts/sendgrid_user.sh {{ hostname }} {{ master_api_key }}') %}
-{% endif %}
+{-% endif %}
 
 
 /etc/postfix/sasl_passwd:
@@ -23,7 +23,7 @@
     - template: jinja
     - context:
         apikey: {{ apikey }}
-        
+
 /etc/postfix/main.cf:
   file.managed:
     - source: salt://sendgrid/templates/main.cf
