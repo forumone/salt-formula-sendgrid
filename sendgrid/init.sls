@@ -10,7 +10,7 @@ sendgrid dependencies:
       - openssl
 
 {% set hostname = grains['id'] %}
-{% set apikey = salt['cmd.script.retcode']('salt://sendgrid/scripts/sendgrid_user.sh {{ hostname }}') %}
+{% set apikey = salt['cmd.script']('salt://sendgrid/scripts/sendgrid_user.sh {{ hostname }}') %}
 
 /etc/postfix/sasl_passwd:
   file.managed:
