@@ -12,7 +12,7 @@
   {% set apikey = salt['cmd.script']('salt://sendgrid/scripts/sendgrid_user.sh {{ hostname }} {{ master_api_key }}') %}
 {% endif %}
 
-sendgrid_requirements:
+install_packages:
   pkg.installed:
     - pkgs:
       - postfix
