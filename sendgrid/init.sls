@@ -15,12 +15,12 @@
 
 install_packages:
   pkg.installed:
-  - pkgs:
-    - postfix
-    - curl
-    - jq
-    - mailutils
-    - openssl
+    - pkgs:
+      - postfix
+      - curl
+      - jq
+      - mailutils
+      - openssl
 
 /etc/postfix/sasl_passwd:
   file.managed:
