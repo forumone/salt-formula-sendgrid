@@ -21,28 +21,29 @@ install_packages:
   {% set apikey = salt['cmd.script']('salt://sendgrid/scripts/sendgrid_user.sh {{ hostname }} {{ master_api_key }}') %}
 {% endif %}
 
-/etc/postfix/sasl_passwd:
-  file.managed:
-    - source: salt://sendgrid/templates/sasl_passwd
-    - user: root
-    - group: root
-    - mode: 600
-    - template: jinja
-    - context:
-        apikey: {{ apikey }}
 
-/etc/postfix/main.cf:
-  file.managed:
-    - source: salt://sendgrid/templates/main.cf
-    - user: root
-    - group: root
-    - mode: 600
-    - template: jinja
-    - context:
-        hostname: {{ hostname }}
+#/etc/postfix/sasl_passwd:
+#  file.managed:
+#    - source: salt://sendgrid/templates/sasl_passwd
+#    - user: root
+#    - group: root
+#    - mode: 600
+#    - template: jinja
+#    - context:
+#        apikey: {{ apikey }}
 
-'postmap /etc/postfix/sasl_passwd':
-  cmd.run
+#/etc/postfix/main.cf:
+#  file.managed:
+#    - source: salt://sendgrid/templates/main.cf
+#    - user: root
+#    - group: root
+#    - mode: 600
+#    - template: jinja
+#    - context:
+#        hostname: {{ hostname }}
 
-'echo "sendgrid setup is working" | mailx -r donotreply@forumone.com -s "message from {{ hostname }}" jbernardi@forumone.com':
-  cmd.run
+#'postmap /etc/postfix/sasl_passwd':
+#  cmd.run
+
+#'echo "sendgrid setup is working" | mailx -r donotreply@forumone.com -s "message from {{ hostname }}" jbernardi@forumone.com':
+#  cmd.run
