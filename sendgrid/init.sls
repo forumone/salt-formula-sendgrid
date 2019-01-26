@@ -1,9 +1,9 @@
 #base config for sendgrid as email relay from postfix
 #
 
-{% set apikey =  salt['pillar.get']('apikey', '0') %}
-{% set master_api_key = salt['pillar.get']('master_api_key', '0') %}
-{% set hostname = grains['id'] %}
+{% set apikey =  salt['pillar.get']('apikey', '0') -%}
+{% set master_api_key = salt['pillar.get']('master_api_key', '0') -%}
+{% set hostname = grains['id'] -%}
 
 {%- if apikey == '0' and master_api_key == '0' %}
 "No API Keys are Set"
