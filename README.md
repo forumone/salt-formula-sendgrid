@@ -1,7 +1,7 @@
 # salt-formula-sendgrid
 Sendgrid salt formula
 
-# Requirements:
+# Requirements for sendgrid_user.sh:
 to run the user creation script you need to install:
 - curl
 - jq
