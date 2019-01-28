@@ -15,17 +15,17 @@ ip=149.72.187.229
 
 if [[ -z $master_api_key ]]
 then 
-#echo "please enter master API key"
+echo "please enter master API key"
 exit 1
 fi
 
 if [[ -z $hostname ]]
 then
-#echo "no hostname provided"
+echo "no hostname provided"
 exit 1
 fi
 
-# taking out the user part - just make a new api key if user exists 
+# taking out the check for user part - just make a new api key if user exists I just think this might cause more issues later. but, i'm leaing it in just in case...
 #users=$(curl -s -X "GET" "https://api.sendgrid.com/v3/subusers" -H "Authorization: Bearer $master_api_key" -H "Content-Type: application/json" | jq -r '.[].username')
 
 #user=$(echo $users | grep -ow $hostname)
@@ -61,11 +61,5 @@ api_key=$(curl -s --request POST \
   --header "on-behalf-of: $hostname" \
   --data '{"name":"postfix"}' | jq -r '.api_key'
 )
-check=$(echo $api_key | grep -ow 'SG.')
 
-if [[ -z $check ]]
-then
-exit 1
-else 
 echo $api_key
-fi

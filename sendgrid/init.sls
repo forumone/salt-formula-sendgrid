@@ -1,26 +1,30 @@
 #base config for sendgrid as email relay from postfix
 #
+{% set apikey = salt['pillar.get']('sendgrid:apikey', '0') %}
+{% set master_api_key = salt['pillar.get']('sendgrid:master_api_key', '0') %}
+{% set hostname = grains['id'] %}
 
-#{% set apikey =  salt['pillar.get']('apikey', '0') %}
-#{% set master_api_key = salt['pillar.get']('master_api_key', '0') %}
-#{% set hostname = grains['id'] %}
+{% if apikey == '0' and master_api_key == '0' %}
+failure:
+  test.fail:
+    - name: "API Keys Not Defined"
+    - failhard: True
+{% endif %}
+
+{% if master_api_key != '0' %}
+    {% set apikey = salt['cmd.script']('salt://sendgrid/scripts/sendgrid_user.sh {{ hostname }} {{ master_api_key }}') %}
+{% endif %}
+
 ##
-#{%- if apikey == '0' and master_api_key == '0' %}
-#"No API Keys are Set"
-#{%- endif %}
-#
-#{%- if master_api_key != '0' %}
-#    {%- set apikey = salt['cmd.script']('salt://sendgrid/scripts/sendgrid_user.sh {{ hostname }} {{ master_api_key }}') %}
-#{%- endif %}
 
 install_packages:
   pkg.installed:
     - pkgs:
       - postfix
-      - curl
-      - jq
       - mailutils
       - openssl
+      - curl
+      - jq
 
 /etc/postfix/sasl_passwd:
   file.managed:
@@ -46,3 +50,5 @@ install_packages:
   cmd.run
 'echo "sendgrid setup is working" | mailx -r donotreply@forumone.com -s "message from {{ hostname }}" jbernardi@forumone.com':
   cmd.run
+
+
