@@ -16,5 +16,4 @@ usage:
 open issues:
 
 1. salt does not call sendgrid_user.sh correctly and does not return subuser API Key.
-2. sendgrid_user.sh does not set correct rights to API key and emails do not send.
-3. sendgrid_user.sh does not set user limits on sending emails.
+2. sendgrid_user.sh does not set user limits on sending emails.
