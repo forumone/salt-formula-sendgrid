@@ -21,7 +21,7 @@ install_packages:
   pkg.installed:
     - pkgs:
       - postfix
-      - mailutils
+      - mailx
       - openssl
       - curl
       - jq
