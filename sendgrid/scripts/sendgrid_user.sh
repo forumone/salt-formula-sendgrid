@@ -37,7 +37,7 @@ fi
 #exit 1
 #fi
 
-generate_post_data()
+generate_user_data()
 {
 cat <<EOF
 {
@@ -49,17 +49,29 @@ cat <<EOF
 EOF
 }
 
+generate_api_data()
+{
+cat <<EOF
+{
+    "name":"Postfix",
+    "scopes": [
+    "mail.send"
+  ]
+}
+EOF
+}
+
 curl -s -X POST --url 'https://api.sendgrid.com/v3/subusers' \
 -H "authorization: Bearer $master_api_key" \
 -H 'content-type: application/json' \
--d "$(generate_post_data)" > /dev/null
+-d "$(generate_user_data)" > /dev/null
 
 api_key=$(curl -s --request POST \
   --url https://api.sendgrid.com/v3/api_keys \
   --header "authorization: Bearer $master_api_key" \
   --header 'content-type: application/json' \
   --header "on-behalf-of: $hostname" \
-  --data '{"name":"postfix"}' | jq -r '.api_key'
+  --data "$(generate_api_data)" | jq -r '.api_key'
 )
 
 echo $api_key
