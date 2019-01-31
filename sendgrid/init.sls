@@ -22,9 +22,6 @@ install_packages:
     - pkgs:
       - postfix
       - mailx
-      - openssl
-      - curl
-      - jq
 
 /etc/postfix/sasl_passwd:
   file.managed:
