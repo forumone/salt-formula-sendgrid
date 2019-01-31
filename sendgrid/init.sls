@@ -21,7 +21,7 @@ install_packages:
   pkg.installed:
     - pkgs:
       - postfix
-      - mailutils
+      - mailx
       - openssl
       - curl
       - jq
@@ -48,7 +48,7 @@ install_packages:
 
 'postmap /etc/postfix/sasl_passwd':
   cmd.run
-'echo "sendgrid setup is working" | mailx -r donotreply@forumone.com -s "message from {{ hostname }}" jbernardi@forumone.com':
+'echo "sendgrid setup is working on $(hostname)" | mailx -r donotreply@forumone.com -s "message from $(hostname)" sysadmins@forumone.com':
   cmd.run
 
 
