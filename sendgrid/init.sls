@@ -44,8 +44,12 @@ install_packages:
         hostname: {{ hostname }}
 
 'postmap /etc/postfix/sasl_passwd':
-  cmd.run
-'echo "sendgrid setup is working on $(hostname)" | mailx -r donotreply@forumone.com -s "message from $(hostname)" sysadmins@forumone.com':
-  cmd.run
+  cmd.wait:
+    - watch:
+      - file: /etc/postfix/sasl_passwd
 
+'echo "sendgrid setup is working" | mailx -r donotreply@forumone.com -s "message from {{ hostname }}" sysadmins@forumone.com':
+  cmd.wait:
+    - watch:
+      - file: /etc/postfix/sasl_passwd
 
