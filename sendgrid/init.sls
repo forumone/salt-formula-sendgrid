@@ -48,7 +48,7 @@ install_packages:
     - watch:
       - file: /etc/postfix/sasl_passwd
 
-'echo "sendgrid setup is working" | mailx -r donotreply@forumone.com -s "message from {{ hostname }}" sysadmins@forumone.com':
+'echo "sendgrid setup is working" | mailx -r donotreply@forumone.com -s "message from $(hostname)" sysadmins@forumone.com':
   cmd.wait:
     - watch:
       - file: /etc/postfix/sasl_passwd
