@@ -30,8 +30,10 @@ echo "export sendgrid_master_api_key=< api key >" >> ~/.bash_profile
 # Issues:
 
 1. sendgrid_user.sh does not set user limits on sending emails - this is not supported via API and needs to be done manually in the admin site to do this:
-  A. Log into sendgrid with the admin account
-  B. Go TO: Settings > Subusers
-  C. Click on the user you wish to edit
-  D. click "Change Rate Limits" > select "Recurring, Month and 5,000", this is the emails per month that the account can send, allocate more if needed
+
+  - Log into sendgrid with the admin account
+  - Go TO: Settings > Subusers
+  - Click on the user you wish to edit
+  - click "Change Rate Limits" > select "Recurring, Month and 5,000", this is the emails per month that the account can send, allocate more if needed
+  
 2. salt does not call sendgrid_user.sh correctly and does not return subuser API Key for automatic key provisioning.
