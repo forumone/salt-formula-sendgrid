@@ -13,7 +13,7 @@ To run sendgrid_user.sh you will need:
  Note: Sub-Accounts can have multiple API Keys.
 
 
-# usage:
+# Usage:
 
 # on the salt master server:
 sendgrid_user.sh < hostname >
