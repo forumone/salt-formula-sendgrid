@@ -48,7 +48,7 @@ install_packages:
     - watch:
       - file: /etc/postfix/sasl_passwd
       
-{% if salt['pillar.get']('sendgrid:sendemail') %}
+{% if salt['pillar.get']('sendgrid:sendtestemail') %}
 'echo "sendgrid setup is working" | mailx -r donotreply@forumone.com -s "message from $(hostname)" sysadmins@forumone.com':
   cmd.wait:
     - watch:
