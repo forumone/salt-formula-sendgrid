@@ -1,4 +1,3 @@
 sendgrid:
   apikey: << api key here >>
-  sendtestemail: True
   sendto: someone@somewhere.com
