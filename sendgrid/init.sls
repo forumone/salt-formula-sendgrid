@@ -38,7 +38,7 @@ install_packages:
     - source: salt://sendgrid/templates/main.cf
     - user: root
     - group: root
-    - mode: 600
+    - mode: 644
     - template: jinja
     - context:
         hostname: {{ hostname }}
